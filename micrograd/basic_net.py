@@ -32,7 +32,7 @@ class layer:
 class basic_MLP:
     def __init__(self, input_size, layers, output_size):
         lz = [input_size] + layers + [output_size]
-        self.layers = [layer(lz[i], lz[i+1]) for i in range(len(lz))]
+        self.layers = [layer(lz[i], lz[i+1]) for i in range(len(lz)-1)]
         
     def __call__(self, x):
         for lay in self.layers:

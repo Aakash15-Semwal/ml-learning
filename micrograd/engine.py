@@ -40,7 +40,7 @@ class Value:
     def sigmoid(self):
         n = self.data
         t = 1 / (1 + math.exp(-n))
-        out = Value(t, (self), "sigmoid")
+        out = Value(t, (self,), "sigmoid")
         def _backward():
             self.grad += (t*(1-t))*out.grad
         out._backward = _backward
