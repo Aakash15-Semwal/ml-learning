@@ -1,4 +1,5 @@
 import math
+import random
 from engine import Value
 
 class neuron:
@@ -14,23 +15,23 @@ class neuron:
         res = raw.sigmoid()
         return res
     
-    def parameters():
+    def parameters(self):
         return self.weights + [self.bias]
 
 class layer:
     def __init__(self, input_size, output_size):
-        self.neurons = [neuron(input_size) for _ in output_size]
+        self.neurons = [neuron(input_size) for _ in range(output_size)]
     
     def __call__(self, x):
         l = [n(x) for n in self.neurons]
         return l
     
-    def parameters():
-        return [p for neuron in self.neuron for p in neuron.parameters()]
+    def parameters(self):
+        return [p for neuron in self.neurons for p in neuron.parameters()]
     
 class basic_MLP:
     def __init__(self, input_size, layers, output_size):
-        lz = input_size + layers + output_size
+        lz = [input_size] + layers + [output_size]
         self.layers = [layer(lz[i], lz[i+1]) for i in range(len(lz))]
         
     def __call__(self, x):
@@ -38,6 +39,6 @@ class basic_MLP:
             x = lay(x)
         return x
     
-    def parameters():
+    def parameters(self):
         return [p for lay in self.layers for p in lay.parameters()]    
         
